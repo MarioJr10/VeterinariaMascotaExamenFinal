@@ -48,7 +48,7 @@ public class MascotaDao implements IMascota {
 
         //Ejecutar la consulta y obtener la lista
         milista = (ArrayList<Mascota>) query.list();
-
+        session.close();
         return milista;
 
     }
@@ -114,6 +114,7 @@ public class MascotaDao implements IMascota {
             respuesta = true;
         } catch (Exception e) {
             respuesta = false;
+            System.out.println(e.getMessage());
         }
         sesion.close();
         return respuesta;

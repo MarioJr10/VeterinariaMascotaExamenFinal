@@ -1,5 +1,5 @@
 package entidades;
-// Generated 24/06/2019 10:14:04 AM by Hibernate Tools 4.3.1
+// Generated 14/07/2019 06:45:13 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class Cliente  implements java.io.Serializable {
 
 
-     private int idCliente1;
+     private int idCliente;
      private String nombre;
      private String apellido;
      private Date fechaNacimiento;
@@ -25,8 +25,8 @@ public class Cliente  implements java.io.Serializable {
     }
 
 	
-    public Cliente(int idCliente1, String nombre, String apellido, Date fechaNacimiento, String direccion, String telefono, String email) {
-        this.idCliente1 = idCliente1;
+    public Cliente(int idCliente, String nombre, String apellido, Date fechaNacimiento, String direccion, String telefono, String email) {
+        this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
@@ -34,8 +34,8 @@ public class Cliente  implements java.io.Serializable {
         this.telefono = telefono;
         this.email = email;
     }
-    public Cliente(int idCliente1, String nombre, String apellido, Date fechaNacimiento, String direccion, String telefono, String email, Set mascotaporclientes) {
-       this.idCliente1 = idCliente1;
+    public Cliente(int idCliente, String nombre, String apellido, Date fechaNacimiento, String direccion, String telefono, String email, Set mascotaporclientes) {
+       this.idCliente = idCliente;
        this.nombre = nombre;
        this.apellido = apellido;
        this.fechaNacimiento = fechaNacimiento;
@@ -45,12 +45,12 @@ public class Cliente  implements java.io.Serializable {
        this.mascotaporclientes = mascotaporclientes;
     }
    
-    public int getIdCliente1() {
-        return this.idCliente1;
+    public int getIdCliente() {
+        return this.idCliente;
     }
     
-    public void setIdCliente1(int idCliente1) {
-        this.idCliente1 = idCliente1;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
     public String getNombre() {
         return this.nombre;

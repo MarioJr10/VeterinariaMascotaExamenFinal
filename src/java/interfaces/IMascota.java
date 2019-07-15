@@ -6,6 +6,7 @@
 package interfaces;
 
 import entidades.Mascota;
+import entidades.Mascotaporcliente;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;

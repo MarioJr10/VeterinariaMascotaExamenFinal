@@ -5,8 +5,8 @@
  */
 package managedBean;
 
-import dao.PersonalDao;
-import entidades.Personal;
+import dao.VacunaDao;
+import entidades.Vacuna;
 import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -19,27 +19,27 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @ViewScoped
-public class PersonalBean {
+public class VacunaBean {
 
-    private Personal personal;
+    private Vacuna vacuna;
     private boolean banderaSelect;
 
-    public Personal getPersonal() {
-        return personal;
+    public Vacuna getVacuna() {
+        return vacuna;
     }
 
-    public void setPersonal(Personal personal) {
-        this.personal = personal;
+    public void setVacuna(Vacuna vacuna) {
+        this.vacuna = vacuna;
     }
 
-    public PersonalBean() {
-        this.personal = new Personal();
+    public VacunaBean() {
+        this.vacuna = new Vacuna();
     }
 
-    public String guardarPersonal() {
+    public String guardarVacuna() {
 
-        PersonalDao dao = new PersonalDao();
-        boolean respuesta = dao.guardarPersonal(personal);
+        VacunaDao dao = new VacunaDao();
+        boolean respuesta = dao.guardarVacuna(vacuna);
 
         if (respuesta) {
 
@@ -47,43 +47,43 @@ public class PersonalBean {
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo registrar"));
         }
-        return "/RegistroPersonal.xhtml";
+        return "/RegistroVacuna.xhtml";
     }
 
-    public String actualizarPersonal() {
-        PersonalDao dao = new PersonalDao();
-        boolean respuesta = dao.actualizarPersonal(personal);
+    public String actualizarVacuna() {
+        VacunaDao dao = new VacunaDao();
+        boolean respuesta = dao.actualizarVacuna(vacuna);
         if (respuesta) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Correcto", "Registro actualizo con exito"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo actualizar"));
         }
-        return "/RegistroPersonal.xhtml";
+        return "/RegistroVacuna.xhtml";
     }
 
-    public ArrayList<Personal> listarPersonales() {
-        ArrayList<Personal> milista = new ArrayList<>();
-        PersonalDao dao = new PersonalDao();
-        milista = dao.listarPersonales();
+    public ArrayList<Vacuna> listarVacunas() {
+        ArrayList<Vacuna> milista = new ArrayList<>();
+        VacunaDao dao = new VacunaDao();
+        milista = dao.listarVacunas();
 
         return milista;
     }
 
     public String limpiar() {
-        return "/RegistroPersonal.xhtml";
+        return "/RegistroVacuna.xhtml";
     }
 
-    public String eliminarPersonal() {
-        PersonalDao dao = new PersonalDao();
-        boolean respuesta = dao.eliminarPersonal(personal);
+    public String eliminarVacuna() {
+        VacunaDao dao = new VacunaDao();
+        boolean respuesta = dao.eliminarVacuna(vacuna);
         if (respuesta) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Correcto", "Registro Borrado con exito"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo eliminar"));
         }
-        return "/RegistroPersonal.xhtml";
+        return "/RegistroVacuna.xhtml";
     }
 
     public void selectBandera() {

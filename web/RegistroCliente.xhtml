@@ -25,7 +25,7 @@
                                         <p:outputLabel value="ID"/>
                                     </p:column>
                                     <p:column>
-                                        <p:inputText value="#{clienteBean.cliente.idCliente1}" required="true"/>
+                                        <p:inputText value="#{clienteBean.cliente.idCliente}" required="true"/>
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -49,7 +49,7 @@
                                         <p:outputLabel value="Fecha Nacimiento"/>
                                     </p:column>
                                     <p:column>
-                                        <p:inputText value="#{clienteBean.cliente.fechaNacimiento}" required="true"/>
+                                        <p:calendar locale="es" value="#{clienteBean.cliente.fechaNacimiento}" pattern="dd/MM/yyyy" mask="true" required="true"/>
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -85,10 +85,10 @@
 
                     <h:form id="formData">
 
-                        <p:dataTable rowKey="#{cliente.idCliente1}" selection="#{clienteBean.cliente}" selectionMode="single" id="dataTable" var="cliente" value="#{clienteBean.listarClientes()}">
+                        <p:dataTable rowKey="#{cliente.idCliente}" selection="#{clienteBean.cliente}" selectionMode="single" id="dataTable" var="cliente" value="#{clienteBean.listarClientes()}">
                             <p:ajax event="rowSelect" update=":formCliente"/>
                             <p:column headerText="Codigo">
-                                <p:outputLabel value="#{cliente.idCliente1}"/>
+                                <p:outputLabel value="#{cliente.idCliente}"/>
                             </p:column>
                             <p:column headerText="Cliente">
                                 <p:outputLabel value="#{cliente.nombre}"/>

@@ -46,10 +46,11 @@ Contributor(s):
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mascotas</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
-        <mapping resource="entidades/Mascota.hbm.xml"/>
-        <mapping resource="entidades/Cliente.hbm.xml"/>
-        <mapping resource="entidades/Personal.hbm.xml"/>
         <mapping resource="entidades/Mascotaporcliente.hbm.xml"/>
+        <mapping resource="entidades/Vacuna.hbm.xml"/>
+        <mapping resource="entidades/Mascota.hbm.xml"/>
         <mapping resource="entidades/Atencion.hbm.xml"/>
+        <mapping resource="entidades/Personal.hbm.xml"/>
+        <mapping resource="entidades/Cliente.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.hibernate.Session;
 
 /**
  *
@@ -22,6 +23,7 @@ import javax.faces.context.FacesContext;
 public class MascotaBean {
 
     private Mascota mascota;
+    private boolean banderaSelect;
 
     public Mascota getMascota() {
         return mascota;
@@ -58,6 +60,7 @@ public class MascotaBean {
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo actualizar"));
         }
+
         return "/index.xhtml";
     }
 
@@ -76,12 +79,27 @@ public class MascotaBean {
     public String eliminarMascota() {
         MascotaDao dao = new MascotaDao();
         boolean respuesta = dao.eliminarMascota(mascota);
+        System.out.println(respuesta);
         if (respuesta) {
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Correcto", "Registro Borrado con exito"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo eliminar"));
         }
+
         return "/index.xhtml";
     }
+
+    public void selectBandera() {
+        banderaSelect = true;
+    }
+
+    public boolean isBanderaSelect() {
+        return banderaSelect;
+    }
+
+    public void setBanderaSelect(boolean banderaSelect) {
+        this.banderaSelect = banderaSelect;
+    }
+
 }

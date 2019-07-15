@@ -17,13 +17,24 @@
             <div id="top" class="top">
                 <ui:insert name="top">
                     <p:megaMenu>
-                        <p:submenu label="INICIO" ></p:submenu>
+                        <p:submenu label="INICIO">
+                            <p:column>
+                                <p:submenu label="SELECCIONE">
+                                    <p:menuitem value="Mascota" action="/index.xhtml"/>
+                                    <p:menuitem value="Cliente" action="/RegistroCliente.xhtml"/>
+                                    <p:menuitem value="Personal" action="/RegistroPersonal.xhtml"/>
+
+                                </p:submenu>
+                            </p:column>
+                        </p:submenu>
                         <p:submenu label="MANTENIMIENTOS">
                             <p:column>
                                 <p:submenu label="SELECCIONE">
-                                    <p:menuitem value="Mascota" action="/RegistroMascota"/>
-                                    <p:menuitem value="Cliente" action="/RegistroCliente"/>
-                                    <p:menuitem value="Personal" action="/RegistroPersonal"/>
+                                    <p:menuitem value="Mascota" action="/index.xhtml"/>
+                                    <p:menuitem value="Cliente" action="/RegistroCliente.xhtml"/>
+                                    <p:menuitem value="Personal" action="/RegistroPersonal.xhtml"/>
+                                    <p:menuitem value="Mascota Por Cliente" action="/RegistroMascotaPorCliente.xhtml"/>
+                                    <p:menuitem value="Vacuna" action="/RegistroVacuna.xhtml"/>
                                 </p:submenu>
                             </p:column>
                         </p:submenu>

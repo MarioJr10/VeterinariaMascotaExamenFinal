@@ -78,16 +78,16 @@
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
-                            <p:commandButton value="Registrar" action="#{personalBean.guardarPersonal()}" update=":formData:dataTable,:formPersonal"/>
                             <p:commandButton value="Nuevo" action="#{personalBean.limpiar()}" update=":formPersonal"/>
-                            <p:commandButton value="Actualizar" action="#{personalBean.actualizarPersonal()}" update=":formData:dataTable,:formPersonal"/>
+                            <p:commandButton rendered="#{!personalBean.banderaSelect}" value="Registrar" action="#{personalBean.guardarPersonal()}" update=":formData:dataTable,:formPersonal"/>
+                            <p:commandButton rendered="#{personalBean.banderaSelect}" value="Actualizar" action="#{personalBean.actualizarPersonal()}" update=":formData:dataTable,:formPersonal"/>
                         </p:panel>
                     </h:form>
 
                     <h:form id="formData">
 
                         <p:dataTable rowKey="#{personal.idPersonal}" selection="#{personalBean.personal}" selectionMode="single" id="dataTable" var="personal" value="#{personalBean.listarPersonales()}">
-                            <p:ajax event="rowSelect" update=":formPersonal"/>
+                            <p:ajax event="rowSelect" update=":formPersonal" listener="#{personalBean.selectBandera()}"/>
                             <p:column headerText="Codigo">
                                 <p:outputLabel value="#{personal.idPersonal}"/>
                             </p:column>
@@ -102,6 +102,9 @@
                             </p:column>
                             <p:column headerText="Telefono">
                                 <p:outputLabel value="#{personal.telefono}"/>
+                            </p:column>
+                            <p:column headerText="Telefono">
+                                <p:outputLabel value="#{personal.email}"/>
                             </p:column>
                             <p:column>
                                 <p:commandButton value="ELIMINAR" action="#{personalBean.eliminarPersonal()}" update=":formData:dataTable,:formPersonal"/>

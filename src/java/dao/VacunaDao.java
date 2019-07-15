@@ -5,8 +5,8 @@
  */
 package dao;
 
-import entidades.Cliente;
-import interfaces.ICliente;
+import entidades.Vacuna;
+import interfaces.IVacuna;
 import java.util.ArrayList;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,18 +17,18 @@ import utilitarios.HibernateUtil;
  *
  * @author LeguiA
  */
-public class ClienteDao implements ICliente {
+public class VacunaDao implements IVacuna {
 
     @Override
-    public boolean guardarCliente(Cliente cliente) {
+    public boolean guardarVacuna(Vacuna vacuna) {
         //Construir una nueva session y una nueva transaccion
         boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
 
-        //Registrar en la base de datos la cliente
+        //Registrar en la base de datos la vacuna
         try {
-            sesion.save(cliente);
+            sesion.save(vacuna);
             transaccion.commit();
         } catch (Exception e) {
             respuesta = false;
@@ -38,26 +38,26 @@ public class ClienteDao implements ICliente {
     }
 
     @Override
-    public ArrayList<Cliente> listarClientes() {
+    public ArrayList<Vacuna> listarVacunas() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        ArrayList<Cliente> milista = new ArrayList<>();
+        ArrayList<Vacuna> milista = new ArrayList<>();
         //Crear la consulta hacia la base de datos
-        Query query = session.createQuery("FROM Cliente");
+        Query query = session.createQuery("FROM Vacuna");
 
         //Ejecutar la consulta y obtener la lista
-        milista = (ArrayList<Cliente>) query.list();
+        milista = (ArrayList<Vacuna>) query.list();
         session.close();
         return milista;
 
     }
 
     @Override
-    public boolean actualizarCliente(Cliente cliente) {
+    public boolean actualizarVacuna(Vacuna vacuna) {
         boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
         try {
-            sesion.update(cliente);
+            sesion.update(vacuna);
             transaccion.commit();
         } catch (Exception e) {
             respuesta = false;
@@ -67,32 +67,32 @@ public class ClienteDao implements ICliente {
     }
 
     @Override
-    public ArrayList<Cliente> listPastor(Session sesion) {
-        ArrayList<Cliente> milista = new ArrayList<>();
+    public ArrayList<Vacuna> listPastor(Session sesion) {
+        ArrayList<Vacuna> milista = new ArrayList<>();
         //Crear la consulta hacia la base de datos
-        Query query = sesion.createQuery("FROM Cliente where raza ='pastor aleman'");
+        Query query = sesion.createQuery("FROM Vacuna where raza ='pastor aleman'");
 
         //Ejecutar la consulta y obtener la lista
-        milista = (ArrayList<Cliente>) query.list();
+        milista = (ArrayList<Vacuna>) query.list();
         sesion.close();
         return milista;
     }
 
     @Override
-    public ArrayList<Cliente> listSANDOR(Session sesion) {
-        ArrayList<Cliente> milista = new ArrayList<>();
+    public ArrayList<Vacuna> listSANDOR(Session sesion) {
+        ArrayList<Vacuna> milista = new ArrayList<>();
         //Crear la consulta hacia la base de datos
-        Query query = sesion.createQuery("FROM Cliente where nombreCliente ='sandor'");
+        Query query = sesion.createQuery("FROM Vacuna where nombreVacuna ='sandor'");
 
         //Ejecutar la consulta y obtener la lista
-        milista = (ArrayList<Cliente>) query.list();
+        milista = (ArrayList<Vacuna>) query.list();
         return milista;
 
     }
 
     @Override
     public Integer listCount(Session sesion) {
-        String sql = "select count(*) From Cliente";
+        String sql = "select count(*) From Vacuna";
         Query query = sesion.createQuery(sql);
         Long long1 = (Long) query.uniqueResult();
         Integer count = long1.intValue();
@@ -101,13 +101,13 @@ public class ClienteDao implements ICliente {
     }
 
     @Override
-    public boolean eliminarCliente(Cliente cliente) {
+    public boolean eliminarVacuna(Vacuna vacuna) {
 
         boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
         try {
-            sesion.delete(cliente);
+            sesion.delete(vacuna);
             transaccion.commit();
             respuesta = true;
         } catch (Exception e) {
