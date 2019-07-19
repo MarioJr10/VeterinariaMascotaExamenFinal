@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 14/07/2019 06:45:15 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 18/07/2019 07:58:42 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entidades.Atencion" table="atencion" catalog="mascotas" optimistic-lock="version">
         <id name="idAtencion" type="int">
@@ -13,7 +13,10 @@
             <column name="idCliente" not-null="true" />
         </many-to-one>
         <many-to-one name="personal" class="entidades.Personal" fetch="select">
-            <column name="Personal_idPersonal" not-null="true" />
+            <column name="idPersonal" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoatencion" class="entidades.Tipoatencion" fetch="select">
+            <column name="idTipoAtencion" not-null="true" />
         </many-to-one>
         <property name="fechaAtencion" type="string">
             <column name="fechaAtencion" length="45" not-null="true" />

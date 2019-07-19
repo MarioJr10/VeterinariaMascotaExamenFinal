@@ -5,18 +5,19 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>REGISTRO VACUNA</title>
+        <title>REGISTRO USUARIO</title>
     </h:head>
     <h:body>
         <ui:composition template="./TemplateVeterinaria.xhtml">
+
             <ui:define name="content">
                 <p:growl id="msj" autoUpdate="true"/>
                 <div align="center">
-                    <h:form id="formVacuna">
+                    <h:form id="formUsuario">
                         <p:panel style="width:40">
                             <f:facet name="header">
                                 <p:column>
-                                    <p:outputLabel value ="Registro Vacunas"/>
+                                    <p:outputLabel value ="Registro Usuarios"/>
                                 </p:column>
                             </f:facet>
                             <p:panelGrid style="width:40 ">
@@ -25,69 +26,69 @@
                                         <p:outputLabel value="ID"/>
                                     </p:column>
                                     <p:column>
-                                        <p:inputText value="#{vacunaBean.vacuna.idVacuna}" required="true"/>
+                                        <p:inputText value="#{usuarioBean.usuario.idUsuario}" required="true"/>
                                     </p:column>
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        <p:outputLabel value="Fecha"/>
+                                        <p:outputLabel value="Nombre Usuario"/>
                                     </p:column>
                                     <p:column>
-                                        <p:calendar locale="es" value="#{vacunaBean.vacuna.fecha}" pattern="dd/MM/yyyy" mask="true" required="true"/>
-                                    </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Enfermedad"/>
-                                    </p:column>
-                                    <p:column>
-                                        <p:inputText value="#{vacunaBean.vacuna.enfermedad}" required="true"/>
+                                        <p:inputText value="#{usuarioBean.usuario.nombreUsuario}" required="true"/>
                                     </p:column>
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        <p:outputLabel value="Fecha Proxima"/>
+                                        <p:outputLabel value="Passoword"/>
                                     </p:column>
                                     <p:column>
-                                        <p:calendar locale="es" value="#{vacunaBean.vacuna.fechaProxima}" pattern="dd/MM/yyyy" mask="true" required="true"/>
+                                        <p:inputText value="#{usuarioBean.usuario.password}" required="true"/>
                                     </p:column>
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        <p:outputLabel value="Nombre Mascota"/>
+                                        <p:outputLabel value="IdCliente"/>
                                     </p:column>
                                     <p:column>
-                                        <p:selectOneMenu value="#{mascotaPorClienteBean.idMascota}">
-                                            <f:selectItem itemLabel="--Seleccione un Mascota--"/>
-                                            <f:selectItems value="#{mascotaPorClienteBean.listamascotas}" var="mascota" itemLabel="#{mascota.nombreMascota}" itemValue="#{mascota.idMascota}"/>
+                                        <p:selectOneMenu value="#{usuarioBean.idCliente}">
+                                            <f:selectItem itemLabel="--Seleccione un IdCliente--"/>
+                                            <f:selectItems value="#{usuarioBean.listarCliente}" var="clien" itemLabel="#{clien.nombre}" itemValue="#{clien.idCliente}"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="IdUsuario"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu value="#{usuarioBean.idPersonal}">
+                                            <f:selectItem itemLabel="--Seleccione un IdUsuario--"/>
+                                            <f:selectItems value="#{usuarioBean.listarPersonal}" var="pers" itemLabel="#{pers.nombre}" itemValue="#{pers.idPersonal}"/>
                                         </p:selectOneMenu>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
-                            <p:commandButton value="Nuevo" action="#{vacunaBean.limpiar()}" update=":formVacuna"/>
-                            <p:commandButton rendered="#{!vacunaBean.banderaSelect}" value="Registrar" action="#{vacunaBean.guardarVacuna()}" update=":formData:dataTable,:formVacuna"/>
-                            <p:commandButton rendered="#{vacunaBean.banderaSelect}" value="Actualizar" action="#{vacunaBean.actualizarVacuna()}" update=":formData:dataTable,:formVacuna"/>
+                            <p:commandButton value="Nuevo" action="#{usuarioBean.limpiar()}" update=":formUsuario"/>
+                            <p:commandButton rendered="#{!usuarioBean.banderaSelect}" value="Registrar" action="#{usuarioBean.guardar()}" update=":formData:dataTable,:formUsuario"/>
+                            <p:commandButton rendered="#{usuarioBean.banderaSelect}" value="Actualizar" action="#{usuarioBean.actualizarUsuario()}" update=":formData:dataTable,:formUsuario"/>
                         </p:panel>
                     </h:form>
 
                     <h:form id="formData">
 
-                        <p:dataTable rowKey="#{vacuna.idVacuna}" selection="#{vacunaBean.vacuna}" selectionMode="single" id="dataTable" var="vacuna" value="#{vacunaBean.listarVacunas()}">
-                            <p:ajax event="rowSelect" update=":formVacuna" listener="#{vacunaBean.selectBandera()}"/>
+                        <p:dataTable rowKey="#{usuario.idUsuario}" selection="#{usuarioBean.usuario}" selectionMode="single" id="dataTable" var="usuario" value="#{usuarioBean.listarUsuario()}">
+                            <p:ajax event="rowSelect" update=":formUsuario" listener="#{usuarioBean.selectBandera()}"/>
                             <p:column headerText="Codigo">
-                                <p:outputLabel value="#{vacuna.idVacuna}"/>
+                                <p:outputLabel value="#{usuario.idUsuario}"/>
                             </p:column>
-                            <p:column headerText="Fecha">
-                                <p:outputLabel value="#{vacuna.fecha}"/>
+                            <p:column headerText="Usuario">
+                                <p:outputLabel value="#{usuario.nombreUsuario}"/>
                             </p:column>
-                            <p:column headerText="Enfermedad">
-                                <p:outputLabel value="#{vacuna.enfermedad}"/>
-                            </p:column>
-                            <p:column headerText="Fecha de Prox. Cita">
-                                <p:outputLabel value="#{vacuna.fechaProxima}"/>
+                            <p:column headerText="Password">
+                                <p:outputLabel value="#{usuario.password}"/>
                             </p:column>
                             <p:column>
-                                <p:commandButton value="ELIMINAR" action="#{vacunaBean.eliminarVacuna()}" update=":formData:dataTable,:formVacuna"/>
+                                <p:commandButton value="ELIMINAR" action="#{usuarioBean.eliminarUsuario()}" update=":formData:dataTable,:formUsuario"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

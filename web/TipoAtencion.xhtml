@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>REGISTRO TIPO ATENCIÓN</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./TemplateVeterinaria.xhtml">
+
+            <ui:define name="content">
+                <p:growl id="msj" autoUpdate="true"/>
+                <div align="center">
+                    <h:form id="formAtencion">
+                        <p:panel style="width:40">
+                            <f:facet name="header">
+                                <p:column>
+                                    <p:outputLabel value ="Registro Tipo Atencion"/>
+                                </p:column>
+                            </f:facet>
+                            <p:panelGrid style="width:40 ">
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="ID"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{tipoatencionBean.tipoatencion.idTipoAtencion}" required="true"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Descripcion"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{tipoatencionBean.tipoatencion.descripcion}" required="true"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                            <p:commandButton value="Nuevo" action="#{tipoatencionBean.limpiar()}" update=":formAtencion"/>
+                            <p:commandButton rendered="#{!tipoatencionBean.banderaSelect}" value="Registrar" action="#{tipoatencionBean.guardarTipoatencion()}" update=":formData:dataTable,:formAtencion"/>
+                            <p:commandButton rendered="#{tipoatencionBean.banderaSelect}" value="Actualizar" action="#{tipoatencionBean.actualizarTipoatencion()}" update=":formData:dataTable,:formAtencion"/>
+                        </p:panel>
+                    </h:form>
+
+                    <h:form id="formData">
+
+                        <p:dataTable rowKey="#{tipoatencion.idTipoAtencion}" selection="#{tipoatencionBean.tipoatencion}" selectionMode="single" id="dataTable" var="tipoatencion" value="#{tipoatencionBean.listarTipoatencion()}">
+                            <p:ajax event="rowSelect" update=":formAtencion" listener="#{tipoatencionBean.selectBandera()}"/>
+                            <p:column headerText="Codigo">
+                                <p:outputLabel value="#{tipoatencion.idTipoAtencion}"/>
+                            </p:column>
+                            <p:column headerText="Descripcion">
+                                <p:outputLabel value="#{tipoatencion.descripcion}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="ELIMINAR" action="#{tipoatencionBean.eliminarTipoatencion()}" update=":formData:dataTable,:formAtencion"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

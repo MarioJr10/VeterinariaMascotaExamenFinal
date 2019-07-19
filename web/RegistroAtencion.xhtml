@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>REGISTRO DE ATENCION</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./TemplateVeterinaria.xhtml">
+            <ui:define name="content">
+                <p:growl id="msj" autoUpdate="true"/>
+                <div align="center">
+                    <h:form id="formAtencion">
+                        <p:panel style="width:40">
+                            <f:facet name="header">
+                                <p:column>
+                                    <p:outputLabel value ="Resgistro de Atencion"/>
+                                </p:column>
+                            </f:facet>
+                            <p:panelGrid style="width:40 ">
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="ID"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{atencionBean.atencion.idAtencion}" required="true"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Fecha de Atencion"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:calendar locale="es" value="#{atencionBean.atencion.fechaAtencion}" pattern="dd/MM/yyyy" mask="true" required="true"/>
+                                    </p:column>
+                                </p:row> 
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Diagnostico"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{atencionBean.atencion.diagnostico}" required="true"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Hora:"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:calendar id="time" value="#{atencionBean.atencion.horaAtencion}" pattern="HH:mm:ss" timeOnly="true"  />
+                                    </p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="idPersonal"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu value="#{atencionBean.idPersonal}">
+                                            <f:selectItem itemLabel="--Seleccione un idPersonal--"/>
+                                            <f:selectItems value="#{atencionBean.listarPersonal}" var="personal" itemLabel="#{personal.nombre}" itemValue="#{personal.idPersonal}"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="idMascota"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu value="#{atencionBean.idMascota}">
+                                            <f:selectItem itemLabel="--Seleccione un idMascota--"/>
+                                            <f:selectItems value="#{atencionBean.listarMascota}" var="mascota" itemLabel="#{mascota.nombreMascota}" itemValue="#{mascota.idMascota}"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="idCliente"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu value="#{atencionBean.idCliente}">
+                                            <f:selectItem itemLabel="--Seleccione un idPersonal--"/>
+                                            <f:selectItems value="#{atencionBean.listarCliente}" var="cliente" itemLabel="#{cliente.nombre}" itemValue="#{cliente.idCliente}"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="idTipoAtencion"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu value="#{atencionBean.idTipoAtencion}">
+                                            <f:selectItem itemLabel="--Seleccione un idTipoAtencion--"/>
+                                            <f:selectItems value="#{atencionBean.listarTipoAtencion}" var="tipoatencion" itemLabel="#{tipoatencion.descripcion}" itemValue="#{tipoatencion.idTipoAtencion}"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                            <p:commandButton value="Nuevo" action="#{atencionBean.limpiar()}" update=":formAtencion"/>
+                            <p:commandButton rendered="#{!atencionBean.banderaSelect}" value="Registrar" action="#{atencionBean.guardar()}" update=":formData:dataTable,:formAtencion"/>
+                            <p:commandButton rendered="#{atencionBean.banderaSelect}" value="Actualizar" action="#{atencionBean.actualizarAtencion()}" update=":formData:dataTable,:formAtencion"/>
+                        </p:panel>
+                    </h:form>
+
+                    <h:form id="formData">
+                        <p:dataTable rowKey="#{atencion.idAtencion}" selection="#{atencionBean.atencion}" selectionMode="single" id="dataTable" var="atencion" value="#{atencionBean.listarAtencion()}">
+                            <p:ajax event="rowSelect" update=":formAtencion" listener="#{atencionBean.selectBandera()}"/>
+                            <p:column headerText="Codigo">
+                                <p:outputLabel value="#{atencion.idAtencion}"/>
+                            </p:column>
+                            <p:column headerText="Fecha de Atencion">
+                                <p:outputLabel value="#{atencion.fechaAtencion}"/>
+                            </p:column>
+                            <p:column headerText="Diagnostico">
+                                <p:outputLabel value="#{atencion.diagnostico}"/>
+                            </p:column>
+                            <p:column headerText="Hora de Atencion">
+                                <p:outputLabel value="#{atencion.horaAtencion}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="ELIMINAR" action="#{atencionBean.eliminarAtencion()}" update=":formData:dataTable,:formAtencion"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

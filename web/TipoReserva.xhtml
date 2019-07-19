@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>REGISTRO TIPO RESERVA</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./TemplateVeterinaria.xhtml">
+
+            <ui:define name="content">
+                <p:growl id="msj" autoUpdate="true"/>
+                <div align="center">
+                    <h:form id="formTiporeserva">
+                        <p:panel style="width:40">
+                            <f:facet name="header">
+                                <p:column>
+                                    <p:outputLabel value ="Registro Tipo Reserva"/>
+                                </p:column>
+                            </f:facet>
+                            <p:panelGrid style="width:40 ">
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="ID"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{tiporeservaBean.tiporeserva.idTipoReserva}" required="true"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Descripcion"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{tiporeservaBean.tiporeserva.descripcion}" required="true"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                            <p:commandButton value="Nuevo" action="#{tiporeservaBean.limpiar()}" update=":formTiporeserva"/>
+                            <p:commandButton rendered="#{!tiporeservaBean.banderaSelect}" value="Registrar" action="#{tiporeservaBean.guardarTiporeserva()}" update=":formData:dataTable,:formTiporeserva"/>
+                            <p:commandButton rendered="#{tiporeservaBean.banderaSelect}" value="Actualizar" action="#{tiporeservaBean.actualizarTiporeserva()}" update=":formData:dataTable,:formTiporeserva"/>
+                        </p:panel>
+                    </h:form>
+
+                    <h:form id="formData">
+
+                        <p:dataTable rowKey="#{tiporeserva.idTipoReserva}" selection="#{tiporeservaBean.tiporeserva}" selectionMode="single" id="dataTable" var="tiporeserva" value="#{tiporeservaBean.listarTiporeserva()}">
+                            <p:ajax event="rowSelect" update=":formTiporeserva" listener="#{tiporeservaBean.selectBandera()}"/>
+                            <p:column headerText="Codigo">
+                                <p:outputLabel value="#{tiporeserva.idTipoReserva}"/>
+                            </p:column>
+                            <p:column headerText="Descripcion">
+                                <p:outputLabel value="#{tiporeserva.descripcion}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="ELIMINAR" action="#{tiporeservaBean.eliminarTiporeserva()}" update=":formData:dataTable,:formTiporeserva"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

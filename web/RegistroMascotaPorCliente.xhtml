@@ -16,7 +16,7 @@
                         <p:panel style="width:40">
                             <f:facet name="header">
                                 <p:column>
-                                    <p:outputLabel value ="Mascotas"/>
+                                    <p:outputLabel value ="Mascotas por Cliente"/>
                                 </p:column>
                             </f:facet>
                             <p:panelGrid style="width:40 ">
@@ -63,17 +63,11 @@
                     <h:form id="formData">
                         <p:dataTable rowKey="#{mascota.idMascota}" selection="#{mascotaBean.mascota}" selectionMode="single" id="dataTable" var="mascota" value="#{mascotaBean.listarMascotas()}">
                             <p:ajax event="rowSelect" update=":formMascota" listener="#{mascotaBean.selectBandera()}"/>
-                            <p:column headerText="Codigo">
-                                <p:outputLabel value="#{mascota.idMascota}"/>
-                            </p:column>
-                            <p:column headerText="Mascota">
-                                <p:outputLabel value="#{mascota.nombreMascota}"/>
-                            </p:column>
-                            <p:column headerText="Cliente">
+                            <p:column headerText="Nombre Cliente">
                                 <p:outputLabel value="#{mascota.nombreCliente}"/>
                             </p:column>
-                            <p:column headerText="Raza">
-                                <p:outputLabel value="#{mascota.raza}"/>
+                            <p:column headerText="Nombre Cliente">
+                                <p:outputLabel value="#{mascota.nombreMascota}"/>
                             </p:column>
                             <p:column>
                                 <p:commandButton value="ELIMINAR" action="#{mascotaBean.eliminarMascota()}" update=":formData:dataTable,:formMascota"/>

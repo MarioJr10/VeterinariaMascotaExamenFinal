@@ -84,7 +84,6 @@
                     </h:form>
 
                     <h:form id="formData">
-
                         <p:dataTable rowKey="#{cliente.idCliente}" selection="#{clienteBean.cliente}" selectionMode="single" id="dataTable" var="cliente" value="#{clienteBean.listarClientes()}">
                             <p:ajax event="rowSelect" update=":formCliente"/>
                             <p:column headerText="Codigo">
